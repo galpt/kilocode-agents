@@ -35,7 +35,7 @@ The current agent set is intentionally lean rather than overly role-heavy. The g
 
 - `agents.json`
   Full config bundle containing:
-  - `default_agent: "ceo"`
+  - `default_agent: "ceo"` so the autonomous orchestrator is the first responder
   - an `agent` object with the CEO plus supporting subagents
 
 - `agent-imports/*.agent.json`
@@ -98,7 +98,10 @@ The agent organization is built around a simple rule:
 - the `ceo` should orchestrate, not act like a glorified general-purpose coder
 
 That means:
-- the CEO mostly reads, plans, delegates, tracks, and synthesizes
+- the CEO triages each request first
+- the CEO executes directly for trivial local tasks
+- the CEO delegates when specialization, parallelism, or context isolation helps
+- the CEO has broad local authority, and delegated workers inherit enough `edit` and `bash` capability to avoid brittle permission failures
 - implementation and diagnosis live in specialist subagents
 - review and validation are separated from implementation
 - the role set stays small enough to remain reliable

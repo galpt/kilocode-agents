@@ -15,7 +15,7 @@
     "skill": "allow",
     "edit": "deny",
     "bash": {
-      "*": "deny",
+      "*": "ask",
       "git diff*": "allow",
       "git log*": "allow",
       "git show*": "allow",
