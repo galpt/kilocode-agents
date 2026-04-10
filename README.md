@@ -15,7 +15,7 @@ This repository packages:
 
 ## What This Repo Is For
 
-These files are designed for people who want a more opinionated multi-agent setup in Kilocode, especially for:
+These files are intended for a more opinionated multi-agent setup in Kilocode, especially for:
 - starting a greenfield project with stronger orchestration
 - continuing work in a large or unfamiliar codebase
 - experimenting with a CEO-style top-level agent that delegates to specialists
@@ -64,18 +64,18 @@ Included agents:
 
 This bundle intentionally does not pin per-agent `model` overrides.
 
-That means model selection is expected to come from your Kilocode settings:
+That means model selection is expected to come from Kilocode settings:
 - `Default Model` for normal primary-agent conversations
 - `Small Model` for lightweight helper tasks such as title and summary generation
-- `Model per Mode` only if you explicitly want to override a specific agent or mode in Kilo itself
+- `Model per Mode` only when a specific agent or mode should be overridden in Kilo itself
 
-If you want `minimax/MiniMax-M2.7` everywhere, set it in Kilocode's model settings instead of hardcoding it into `agents.json`. That keeps the bundle portable and lets the CEO plus subagents inherit your current Kilo model configuration cleanly.
+For installations that want `minimax/MiniMax-M2.7` everywhere, it should be configured in Kilocode's model settings instead of being hardcoded into `agents.json`. That keeps the bundle portable and lets the CEO plus subagents inherit the active Kilo model configuration cleanly.
 
 ## How To Use
 
 ### Option 1: Import The Full Config Bundle
 
-Use this when you want the whole company-style setup at once.
+Use this path for the full company-style setup at once.
 
 In Kilocode:
 1. Open `Settings`
@@ -86,12 +86,12 @@ In Kilocode:
 
 Notes:
 - This is the correct path for `agents.json`
-- The full settings import merges onto your existing config
+- The full settings import merges onto the existing config
 - Unknown top-level keys such as `$schema` are ignored by the importer
 
 ### Option 2: Import Individual Agents
 
-Use this when you want to test or install agents one by one.
+Use this path to test or install agents one by one.
 
 In Kilocode:
 1. Open `Settings`
@@ -106,10 +106,10 @@ Important:
 
 ## Suggested Workflow
 
-If you want the closest thing to the intended setup:
+For the closest match to the intended setup:
 1. Import `agents.json` through `About -> Import Settings`
 2. Read `new-prompt.md`
-3. Use the ideas in `new-prompt.md` as the basis for your primary-system instruction or a custom mode prompt
+3. Use the ideas in `new-prompt.md` as the basis for a primary-system instruction or a custom mode prompt
 4. Keep `old-prompt.md` around as a comparison point when testing behavior differences
 
 For non-trivial coding work, the intended company workflow is:
@@ -167,7 +167,7 @@ This version is designed to be more autonomous in the face of normal failures:
 - resumable summaries and up-to-date todos are part of the workflow so a fresh agent can recover after auto-compaction without starting over blindly
 
 One important runtime nuance:
-- Kilocode does not give you magical direct subagent-to-subagent conversation by default
+- Kilocode does not provide magical direct subagent-to-subagent conversation by default
 - the intended pattern is CEO-mediated handoff, where the orchestrator passes findings, constraints, and checklists between agents explicitly
 - the normal iterative loop is parent -> subagent -> parent, and longer back-and-forth should reuse the same worker via `task_id` instead of assuming peer chat or nested delegation
 
@@ -176,9 +176,9 @@ This is still intentionally leaner than a full organization chart. The extra rol
 ## Limitations
 
 - Kilocode's current UI importer for Agents is single-agent only
-- Real behavior still depends on your chosen model, enabled tools, permissions, skills, and MCP servers
+- Real behavior still depends on the chosen model, enabled tools, permissions, skills, and MCP servers
 - This setup can improve robustness and review discipline, but it cannot guarantee perfect completion or zero failures
-- You may want to tune prompts, permissions, or model assignments for your own workflow
+- Further tuning of prompts, permissions, or model assignments may still be useful for specific workflows
 
 ## License
 
