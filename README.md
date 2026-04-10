@@ -1,5 +1,7 @@
 # kilocode-agents
 
+Original prompts and agent architecture by Galih Tama <galpt@v.recipes>.
+
 Prompt and agent presets for building stronger multi-agent workflows in Kilocode.
 
 This repository packages:
@@ -15,7 +17,7 @@ These files are designed for people who want a more opinionated multi-agent setu
 - continuing work in a large or unfamiliar codebase
 - experimenting with a CEO-style top-level agent that delegates to specialists
 
-The current agent set is intentionally lean rather than overly role-heavy. The goal is robustness, not theater.
+The current agent set is intentionally structured around delivery stages rather than role-play. The goal is robustness, not theater.
 
 ## Files
 
@@ -43,12 +45,16 @@ The current agent set is intentionally lean rather than overly role-heavy. The g
 
 Included agents:
 - `ceo`
+- `scrum-master`
 - `product-manager`
 - `repo-explorer`
 - `architect`
 - `lead-engineer`
+- `integration-engineer`
 - `debugger`
 - `qa-reviewer`
+- `fidelity-reviewer`
+- `security-reviewer`
 - `devops-engineer`
 
 ## How To Use
@@ -92,28 +98,75 @@ If you want the closest thing to the intended setup:
 3. Use the ideas in `new-prompt.md` as the basis for your primary-system instruction or a custom mode prompt
 4. Keep `old-prompt.md` around as a comparison point when testing behavior differences
 
+For non-trivial coding work, the intended company workflow is:
+1. `ceo` triages the task and decides whether it is trivial, bounded, or complex
+2. `product-manager` checks whether the requirements are actually strong enough to support reliable business-logic work
+3. `repo-explorer` maps the repo when the codebase is unfamiliar or large
+4. `scrum-master` turns the request into a sprint plan with slices, owners, and review gates
+5. `architect` defines the smallest sound design for risky or structural changes
+6. `lead-engineer` implements the main slice
+7. `integration-engineer` handles cross-file integration or review-driven remediation
+8. `qa-reviewer` performs independent review for bugs, regressions, business-logic gaps, and verification holes
+9. `fidelity-reviewer` joins when the task requires exactness against a source artifact, specification, interface, algorithm, output, or behavior
+10. `security-reviewer` joins when the task touches trust boundaries
+11. `devops-engineer` joins for CI, tooling, build, container, or release work
+
+This is intentionally closer to a sprint workflow than a single-agent execution model.
+
+Recommended signoff quorums:
+- trivial low-risk task: direct signoff after verification can be enough
+- normal code change: author + QA
+- fidelity-sensitive change: author + QA + fidelity
+- trust-boundary or security-sensitive change: author + QA + security
+- structural, concurrency-sensitive, memory-safety-sensitive, or low-level risky change: author + QA + architect
+- combined-risk change: merge the required reviewer sets rather than picking one lane
+
 ## Design Notes
 
-The agent organization is built around a simple rule:
-- the `ceo` should orchestrate, not act like a glorified general-purpose coder
+This version is influenced by the strongest parts of Kodus' workflow design:
+- requirement quality matters before business-logic judgments
+- context gathering and planning happen before implementation
+- review is categorized and explicit, not vague
+- delivery is a pipeline with retry and remediation loops, not one heroic agent trying to be flawless
 
-That means:
-- the CEO triages each request first
-- the CEO executes directly for trivial local tasks
-- the CEO delegates when specialization, parallelism, or context isolation helps
-- the CEO has broad local authority, and delegated workers inherit enough `edit` and `bash` capability to avoid brittle permission failures
-- implementation and diagnosis live in specialist subagents
-- review and validation are separated from implementation
-- the role set stays small enough to remain reliable
+The practical rules behind this setup are:
+- the `ceo` may act directly for trivial tasks, but should not rely on one heavy-lifting agent for meaningful work
+- any non-trivial implementation should have at least one independent review lane
+- explicit review quorums should govern signoff instead of ad-hoc judgment
+- fidelity-sensitive work should include a dedicated source-of-truth review lane, not just a code review lane
+- security review is opt-in by relevance, but mandatory for trust-boundary changes
+- greenfield work and large-existing-codebase work should both pass through explicit discovery and planning
+- subagents need enough inherited `edit` and `bash` capability to actually finish delegated work
+- step budgets should be generous enough to survive planning, remediation, and re-review loops without collapsing halfway through the pipeline
+- temporary artifacts should be treated as disposable by default and cleaned up before handoff so the workspace stays professional
+- long-running tasks should maintain compact-safe state via todos and resumable summaries so Kilocode auto-compaction does not erase the working memory of the pipeline
 
-This setup is meant to be more practical than a large "software company simulation" with too many thinly differentiated roles.
+## Robustness Notes
+
+This version is designed to be more autonomous in the face of normal failures:
+- if one subagent stalls, the `ceo` should retry with a narrower scope, route the task to a better-fit agent, or execute directly when safe
+- review findings are meant to feed remediation loops, not merely produce commentary
+- exactness-sensitive tasks should be checked against a source-of-truth checklist, whether that source is a UI, a spec, a protocol, a scheduler design, an interface contract, or expected output behavior
+- the pipeline should pause for a human mainly when permission or a genuinely missing decision is required
+- scratch files, temp folders, debug probes, and throwaway helpers should be kept contained and removed before final delivery unless intentionally promoted into the real solution
+- resumable summaries and up-to-date todos are part of the workflow so a fresh agent can recover after auto-compaction without starting over blindly
+
+One important runtime nuance:
+- Kilocode does not give you magical direct subagent-to-subagent conversation by default
+- the intended pattern is CEO-mediated handoff, where the orchestrator passes findings, constraints, and checklists between agents explicitly
+
+This is still intentionally leaner than a full organization chart. The extra roles exist only where they create a real quality gate.
 
 ## Limitations
 
 - Kilocode's current UI importer for Agents is single-agent only
 - Real behavior still depends on your chosen model, enabled tools, permissions, skills, and MCP servers
+- This setup can improve robustness and review discipline, but it cannot guarantee perfect completion or zero failures
 - You may want to tune prompts, permissions, or model assignments for your own workflow
 
 ## License
 
-MIT. See `LICENSE`.
+- Code and configuration files are licensed under Apache-2.0. See `LICENSE`.
+- Prompt and documentation text are licensed under CC BY 4.0. See `LICENSE.prompts`.
+- Original authorship and attribution notices are preserved in `NOTICE` and `AUTHORS`.
+- Reuse and adaptation are allowed, but attribution must be retained and reuse does not imply endorsement.

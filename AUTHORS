@@ -1,0 +1,9 @@
+Original author: Galih Tama <galpt@v.recipes>
+
+Project:
+- kilocode-agents
+
+Original contributions covered by repository notices include:
+- prompt text and prompt structure
+- multi-agent workflow design
+- agent role definitions and orchestration concepts
