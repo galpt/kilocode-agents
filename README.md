@@ -60,6 +60,17 @@ Included agents:
 - `security-reviewer`
 - `devops-engineer`
 
+## Model Behavior
+
+This bundle intentionally does not pin per-agent `model` overrides.
+
+That means model selection is expected to come from your Kilocode settings:
+- `Default Model` for normal primary-agent conversations
+- `Small Model` for lightweight helper tasks such as title and summary generation
+- `Model per Mode` only if you explicitly want to override a specific agent or mode in Kilo itself
+
+If you want `minimax/MiniMax-M2.7` everywhere, set it in Kilocode's model settings instead of hardcoding it into `agents.json`. That keeps the bundle portable and lets the CEO plus subagents inherit your current Kilo model configuration cleanly.
+
 ## How To Use
 
 ### Option 1: Import The Full Config Bundle
@@ -134,12 +145,13 @@ This version is influenced by the strongest parts of Kodus' workflow design:
 
 The practical rules behind this setup are:
 - the `ceo` may act directly for trivial tasks, but should not rely on one heavy-lifting agent for meaningful work
+- for non-trivial work, the `ceo` should treat delegation as a normal acceleration mechanism, not a last resort
 - any non-trivial implementation should have at least one independent review lane
 - explicit review quorums should govern signoff instead of ad-hoc judgment
 - fidelity-sensitive work should include a dedicated source-of-truth review lane, not just a code review lane
 - security review is opt-in by relevance, but mandatory for trust-boundary changes
 - greenfield work and large-existing-codebase work should both pass through explicit discovery and planning
-- subagents need enough inherited `edit` and `bash` capability to actually finish delegated work
+- subagents inherit the parent agent's effective `edit`, `bash`, and MCP permission envelope in Kilocode, so the CEO needs enough authority for its delegated workers to actually finish the job
 - step budgets should be generous enough to survive planning, remediation, and re-review loops without collapsing halfway through the pipeline
 - temporary artifacts should be treated as disposable by default and cleaned up before handoff so the workspace stays professional
 - long-running tasks should maintain compact-safe state via todos and resumable summaries so Kilocode auto-compaction does not erase the working memory of the pipeline
@@ -157,6 +169,7 @@ This version is designed to be more autonomous in the face of normal failures:
 One important runtime nuance:
 - Kilocode does not give you magical direct subagent-to-subagent conversation by default
 - the intended pattern is CEO-mediated handoff, where the orchestrator passes findings, constraints, and checklists between agents explicitly
+- the normal iterative loop is parent -> subagent -> parent, and longer back-and-forth should reuse the same worker via `task_id` instead of assuming peer chat or nested delegation
 
 This is still intentionally leaner than a full organization chart. The extra roles exist only where they create a real quality gate.
 

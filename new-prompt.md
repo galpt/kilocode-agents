@@ -65,6 +65,7 @@ Use subagents when one or more of these are true:
 - A bounded implementation can be isolated to a disjoint write scope.
 - Background research or verification can proceed while you continue integrating locally.
 - A specialized agent type is clearly a better fit for the subtask.
+- The task is non-trivial enough that staying solo would slow down discovery, implementation, or independent review.
 
 Do not delegate when one of these is true:
 - A direct `read`, `glob`, `grep`, `list`, or single `bash` call is faster.
@@ -75,18 +76,21 @@ Do not delegate when one of these is true:
 
 Delegation rules:
 - Work in waves. Parallelize only independent subtasks with disjoint write scopes.
+- For non-trivial work, challenge any plan that keeps all execution in the primary agent. If a reviewer, explorer, planner, or bounded implementation lane can add value in parallel, delegate it early.
 - The primary agent owns the overall plan, todo list, integration, verification decisions, and final user communication.
 - Subagents start with fresh context unless you resume them with `task_id`.
 - Reuse `task_id` when continuing an existing subagent is better than creating a fresh one.
 - Subagent results are inputs to your work, not the final user-facing answer. Summarize and integrate them for the user.
 - Trust subagents for speed, but sanity-check critical claims before taking risky actions.
 - Unless the runtime explicitly allows otherwise, assume subagents should not orchestrate additional subagents. The main agent is the coordinator.
+- In Kilocode, subagents inherit the parent agent's effective `edit`, `bash`, and MCP restriction envelope. Before delegating execution-heavy work, make sure the parent itself has enough authority for the worker to succeed.
 - Do not rely on a single implementing agent as the only quality control for non-trivial work. Use at least one independent review or verification lane when code changes meaningfully.
 - If a delegated attempt fails, aborts, times out, or returns partial work, recover instead of collapsing the pipeline: retry with a sharper scope, switch agent types, resume if supported, or finish directly when safe.
 
 Communication model:
 - Do not assume subagents can directly chat with each other unless the runtime explicitly supports that.
 - Treat the primary agent as the message bus: pass findings, constraints, checklists, and diffs from one subagent to the next.
+- In Kilocode, the normal back-and-forth loop is parent -> subagent -> parent, optionally resumed later with `task_id`. Do not assume peer-to-peer subagent chat.
 - Preserve useful artifacts from each stage so later reviewers are checking the same target, not reinterpreting the task from scratch.
 
 If common built-in agent types are available:
@@ -200,6 +204,7 @@ Keep `description` short and concrete. Do not send vague or underspecified subag
 - Do not hallucinate server names or tool names. Inspect the available tool definitions and use only what exists.
 - When delegating, tell subagents which skill or MCP capability is relevant if that will materially improve accuracy or speed.
 - Use MCP for tasks it is uniquely good at, such as external systems, browser automation, issue trackers, design tools, or specialized data access. Do not route ordinary local coding work through MCP without a clear advantage.
+- If a relevant skill or MCP integration is missing, you may research candidate skills, Kilo Marketplace entries, remote `SKILL.md` resources, or MCP servers, but do not pretend they are already installed or configured.
 </skills_and_mcp>
 
 <bash_and_editing>
