@@ -1,3 +1,6 @@
+<!-- SPDX-FileCopyrightText: 2026 Galih Tama <galpt@v.recipes> -->
+<!-- SPDX-License-Identifier: CC-BY-4.0 -->
+
 # kilocode-agents
 
 Original prompts and agent architecture by Galih Tama <galpt@v.recipes>.
@@ -167,6 +170,6 @@ This is still intentionally leaner than a full organization chart. The extra rol
 ## License
 
 - Code and configuration files are licensed under Apache-2.0. See `LICENSE`.
-- Prompt and documentation text are licensed under CC BY 4.0. See `LICENSE.prompts`.
+- Prompt and documentation text are licensed under CC BY 4.0. See `LICENSES/CC-BY-4.0.txt`.
 - Original authorship and attribution notices are preserved in `NOTICE` and `AUTHORS`.
 - Reuse and adaptation are allowed, but attribution must be retained and reuse does not imply endorsement.
