@@ -169,7 +169,7 @@ This is still intentionally leaner than a full organization chart. The extra rol
 
 ## License
 
-- Code and configuration files are licensed under Apache-2.0. See `LICENSE`.
-- Prompt and documentation text are licensed under CC BY 4.0. See `LICENSES/CC-BY-4.0.txt`.
+- Prompt and documentation text are licensed under CC BY 4.0. See `LICENSE`.
+- Code and configuration files are licensed under Apache-2.0. See `LICENSE-CODE`.
 - Original authorship and attribution notices are preserved in `NOTICE` and `AUTHORS`.
 - Reuse and adaptation are allowed, but attribution must be retained and reuse does not imply endorsement.

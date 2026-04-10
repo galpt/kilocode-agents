@@ -5,9 +5,9 @@ This repository contains original prompts, prompt architecture, and agent
 workflow designs created by Galih Tama <galpt@v.recipes>.
 
 Code and configuration files in this repository are licensed under Apache
-License 2.0 as described in LICENSES/Apache-2.0.txt. Prompt and
-documentation text are licensed under Creative Commons Attribution 4.0
-International as described in LICENSES/CC-BY-4.0.txt.
+License 2.0 as described in LICENSE-CODE. Prompt and documentation text are
+licensed under Creative Commons Attribution 4.0 International as described in
+LICENSE.
 
 Redistributions and adaptations must preserve the original copyright and
 attribution notices. Reuse does not imply endorsement by the original author.
