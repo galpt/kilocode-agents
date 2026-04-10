@@ -3,7 +3,7 @@
 
 # kilocode-agents
 
-Original prompts and agent architecture by Galih Tama <galpt@v.recipes>.
+<sub><sup>Original prompts and agent architecture by `Galih Tama <galpt@v.recipes>`.</sup></sub>
 
 Prompt and agent presets for building stronger multi-agent workflows in Kilocode.
 
