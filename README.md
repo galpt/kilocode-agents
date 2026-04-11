@@ -2,6 +2,10 @@
 
 <sub><sup>Original prompts and agent architecture by `Galih Tama <galpt@v.recipes>`.</sup></sub>
 
+> [!NOTE]
+>
+> This project is still a work in progress and is currently tested heavily with the MiniMax-M2.7 model. Smarter models (e.g., Opus or GPT-5.4) might work out of the box, but less capable models might not work as the README claims.
+
 ## Motivation
 
 v3 improved over ad-hoc single-agent workflows by introducing explicit pipeline stages and review quorums. However, it still relies primarily on **prompt engineering** — optimizing the instruction template — rather than engineering the **context** that goes into the template.
