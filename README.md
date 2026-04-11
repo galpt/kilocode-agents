@@ -19,7 +19,7 @@ Every task starts with context gathering, not prompt writing. The pipeline treat
 
 ### 2. Separation of Concern
 - **Context Engineer**: gathers and synthesizes what's relevant
-- **Architect**: designs the solution given the gathered context
+- **Solutions Architect**: designs the solution given the gathered context
 - **Implementer**: executes within the designed context
 - **Reviewer**: independently verifies against source-of-truth
 
@@ -87,8 +87,8 @@ flowchart TB
     classDef design fill:#3b2d5f,stroke:#8b5cf6,stroke-width:2px,color:#ddd6fe
     classDef impl fill:#1a4a2d,stroke:#22c55e,stroke-width:2px,color:#bbf7d0
     classDef integrate fill:#4a3a1a,stroke:#f59e0b,stroke-width:2px,color:#fef08a
-    classDef review fill:#4a1a3a,stroke:#ec4899,stroke-width:2px,color:#fbcfe8
-    classDef remediate fill:#4a1a1a,stroke:#ef4444,stroke-width:2px,color:#fecaca
+    classDef review fill:#fff7ed,stroke:#f97316,stroke-width:2px,color:#9a3412
+    classDef remediate fill:#fef2f2,stroke:#dc2626,stroke-width:2px,color:#991b1b
     classDef deliver fill:#1a4a3a,stroke:#10b981,stroke-width:2px,color:#a7f3d0
 ```
 
@@ -272,10 +272,9 @@ Now feeds into context-engineer as a context source.
 
 ---
 
-## File Structure for v4
+## File Structure
 
 ```
-v4/
 ├── agents.json                  # Full config bundle
 ├── agent-imports/
 │   ├── ceo.agent.json
@@ -292,10 +291,12 @@ v4/
 │   ├── performance-reviewer.agent.json
 │   ├── scrum-master.agent.json
 │   ├── product-manager.agent.json
-│   └── repo-explorer.agent.json
+│   ├── repo-explorer.agent.json
+│   └── devops-engineer.agent.json
 ├── context/
 │   ├── context-brief-template.md
 │   └── design-doc-template.md
+├── agent-imports/               # Legacy v3 agent files
 └── README.md
 ```
 
