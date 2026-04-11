@@ -142,10 +142,10 @@ graph TD
 
 ### Data Flow
 
-- **Green nodes** — core pipeline stages
+- **Blue nodes** — core pipeline stages
 - **Pink nodes** — review agents
 - **Red node** — remediation loop
-- **Teal node** — final delivery
+- **Green node** — final delivery
 
 The user sends a **single prompt** to `ceo`. `ceo` orchestrates the entire pipeline, delegating to specialists and reviewers as needed, with explicit remediation loops until all gates pass.
 
