@@ -104,62 +104,48 @@ flowchart TB
 ## Per-Agent Pipeline
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#e8f5e9', 'primaryTextColor': '#1b5e20', 'primaryBorderColor': '#81c784', 'lineColor': '#66bb6a', 'secondaryColor': '#fff9e1', 'tertiaryColor': 'transparent'}}}%%
-flowchart LR
-    USER["👤 User"] -->|"🎯 Single Prompt"| A
-    A["🔍 Requirement Triage"] -->|"📋 Classification + Context Quality"| B
-    B["📚 Context Brief"] -->|"📚 Context Brief"| C
-    C["🏗️ Design Doc"] -->|"🏗️ Design"| D
-    D["⚡ Implementer"] -->|"⚡ Code Slices"| E
-    E["🔗 Integrator"] -->|"🔗 Connected Code"| F
+graph TD
+    User(["👤 User"]) -->|"🎯 Single Prompt"| CEO
 
-    F["✅ QA Reviewer"] -->|"✅ Pass / ❌ Findings"| J
-    F -->|"❌ Findings"| G
-    G["🔒 Security Reviewer"] -->|"❌ Findings"| J
-    F -->|"❌ Findings"| H
-    H["📐 Fidelity Reviewer"] -->|"❌ Findings"| J
-    F -->|"❌ Findings"| I
-    I["⚡ Performance Reviewer"] -->|"❌ Findings"| J
+    subgraph CEO["🎯 CEO Orchestrator"]
+        A["🔍 Requirement Triage"] --> B["📚 Context Brief"]
+        B --> C["🏗️ Design Doc"]
+    end
 
-    J["🔄 Remediator"] -->|"🔄 Fixed Code"| E
-    J -->|"✅ All Clear"| K
-    K["📤 Delivery Manager"] -->|"📤 Delivered"| USER
+    C --> D["⚡ Implementer"]
+    D --> E["🔗 Integrator"]
+    E --> F["✅ QA Reviewer"]
 
-    classDef userNode fill:#1a1a2e,stroke:#7fdbca,stroke-width:3px,color:#eaeaea
-    classDef triageNode fill:#2d3a4f,stroke:#6366f1,stroke-width:2px,color:#e0e7ff
-    classDef contextNode fill:#1e3a3a,stroke:#14b8a6,stroke-width:2px,color:#99f6e4
-    classDef designNode fill:#3d2d4f,stroke:#a855f7,stroke-width:2px,color:#e9d5ff
-    classDef implNode fill:#3d4f2d,stroke:#22c55e,stroke-width:2px,color:#bbf7d0
-    classDef integrateNode fill:#4f3d2d,stroke:#f59e0b,stroke-width:2px,color:#fef3c7
-    classDef qaNode fill:#4f2d3d,stroke:#ec4899,stroke-width:2px,color:#fbcfe8
-    classDef fidelityNode fill:#2d4f4f,stroke:#06b6d4,stroke-width:2px,color:#a5f3fc
-    classDef securityNode fill:#4f2d2d,stroke:#ef4444,stroke-width:2px,color:#fee2e2
-    classDef perfNode fill:#4f3d2d,stroke:#f97316,stroke-width:2px,color:#fed7aa
-    classDef remediateNode fill:#4f3d3d,stroke:#ef4444,stroke-width:2px,color:#fecaca
-    classDef deliverNode fill:#2d4f3d,stroke:#10b981,stroke-width:3px,color:#a7f3d0
+    F -->|"✅ Pass"| J
+    F -->|"❌ Findings"| Remediator
+    Security["🔒 Security Reviewer"] --> Remediator
+    Fidelity["📐 Fidelity Reviewer"] --> Remediator
+    Perf["⚡ Performance Reviewer"] --> Remediator
 
-    class USER,K userNode
-    class A triageNode
-    class B contextNode
-    class C designNode
-    class D implNode
-    class E integrateNode
-    class F qaNode
-    class G securityNode
-    class H fidelityNode
-    class I perfNode
-    class J remediateNode
-    class K deliverNode
+    Remediator -->|"🔄 Fixed Code"| E
+    Remediator -->|"✅ All Clear"| Delivery
+
+    Delivery["📤 Delivery Manager"] -->|"📤 Delivered"| User
+
+    classDef stage fill:#e8f5e9,stroke:#81c784,stroke-width:2px,color:#1b5e20
+    classDef review fill:#fce7f3,stroke:#ec4899,stroke-width:2px,color:#831843
+    classDef remediate fill:#fee2e2,stroke:#ef4444,stroke-width:2px,color:#991b1b
+    classDef deliver fill:#d1fae5,stroke:#10b981,stroke-width:2px,color:#065f46
+    classDef user fill:#e0e7ff,stroke:#6366f1,stroke-width:3px,color:#312e81
+
+    class CEO,A,B,C,D,E,F stage
+    class Security,Fidelity,Perf review
+    class Remediator remediate
+    class Delivery,User deliver
+    class User user
 ```
 
 ### Data Flow
 
-- **Green lines** — context gathering and delivery flow
-- **Purple lines** — design phase
-- **Amber lines** — implementation and integration
-- **Pink lines** — review findings feedback
-- **Red lines** — remediation loop
-- **Teal border** — final delivery
+- **Green nodes** — core pipeline stages
+- **Pink nodes** — review agents
+- **Red node** — remediation loop
+- **Teal node** — final delivery
 
 The user sends a **single prompt** to `ceo`. `ceo` orchestrates the entire pipeline, delegating to specialists and reviewers as needed, with explicit remediation loops until all gates pass.
 
