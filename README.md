@@ -134,8 +134,8 @@ graph TD
     Delivery["📤 Delivery Manager"] -->|"📤 Delivered"| User
 
     classDef stage fill:#e0f2fe,stroke:#3b82f6,stroke-width:2px,color:#1e40af
-    classDef review fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
-    classDef remediate fill:#fee2e2,stroke:#dc2626,stroke-width:2px,color:#991b1b
+    classDef review fill:#fff7ed,stroke:#f97316,stroke-width:2px,color:#9a3412
+    classDef remediate fill:#fef2f2,stroke:#dc2626,stroke-width:2px,color:#991b1b
     classDef deliver fill:#d1fae5,stroke:#059669,stroke-width:2px,color:#065f46
     classDef user fill:#e0e7ff,stroke:#6366f1,stroke-width:3px,color:#312e81
 
@@ -149,7 +149,7 @@ graph TD
 ### Data Flow
 
 - **Blue nodes** — core pipeline stages
-- **Pink nodes** — review agents
+- **Orange nodes** — review agents
 - **Red node** — remediation loop
 - **Green node** — final delivery
 
