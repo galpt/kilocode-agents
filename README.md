@@ -385,4 +385,4 @@ The user interacts only with `ceo`. All other agents are orchestrated behind the
 
 ## License
 
-Same as v3 — CC BY 4.0 for prompts, Apache-2.0 for code/config. See `/intel-drive/agent-research/LICENSE`.
+Same as v3 — CC BY 4.0 for prompts, Apache-2.0 for code/config. See [LICENSE](./LICENSE).
