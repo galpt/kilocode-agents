@@ -1,5 +1,7 @@
 # Kilocode Agents v4 — Context Engineering Architecture
 
+<sub><sup>Original prompts and agent architecture by `Galih Tama <galpt@v.recipes>`.</sup></sub>
+
 ## Motivation
 
 v3 improved over ad-hoc single-agent workflows by introducing explicit pipeline stages and review quorums. However, it still relies primarily on **prompt engineering** — optimizing the instruction template — rather than engineering the **context** that goes into the template.
