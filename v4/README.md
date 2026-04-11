@@ -6,11 +6,6 @@ v3 improved over ad-hoc single-agent workflows by introducing explicit pipeline 
 
 The problem: a well-engineered prompt with the wrong or poorly-gathered context still produces wrong results. The context is the what and when; the prompt is the how.
 
-**Reference inspiration:**
-- **Parlant** (emcie-co/parlant): Demonstrates that context engineering — dynamically narrowing what's relevant per turn — produces more reliable behavior than prompt flooding. Their engine filters context relevance rather than relying on the LLM to "follow all the instructions."
-- **Droid** (Factory): Demonstrates end-to-end lifecycle management: deep codebase understanding, system integrations, and review-driven automation with transparent approval workflows.
-- **Kilocode v7.2.4**: Provides the runtime substrate — multi-mode agents, MCP server marketplace, skills framework, and autonomous CI/CD mode.
-
 ## Core Principles for v4
 
 ### 1. Context is First-Class
@@ -22,16 +17,87 @@ Every task starts with context gathering, not prompt writing. The pipeline treat
 - **Implementer**: executes within the designed context
 - **Reviewer**: independently verifies against source-of-truth
 
-This mirrors Parlant's "condition-action" filtering but adapted for software engineering workflows.
-
 ### 3. Transparent Review Workflows
-Inspired by Droid, every significant decision passes through visible review with explicit approval gates. No black-box autonomous decisions.
+Every significant decision passes through visible review with explicit approval gates. No black-box autonomous decisions.
 
 ### 4. End-to-End Lifecycle
 From requirement -> context -> design -> implementation -> verification -> delivery, with explicit checkpoints and remediation loops.
 
 ### 5. Dynamic Context Narrowing
-Like Parlant's observation/guideline matching, context is dynamically filtered based on what's relevant for the current stage, not dumped all at once.
+Context is dynamically filtered based on what's relevant for the current stage, not dumped all at once. Each pipeline stage receives only the context it needs.
+
+---
+
+## Pipeline Overview
+
+```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#1a1a2e', 'primaryTextColor': '#eaeaea', 'primaryBorderColor': '#4a4a6a', 'lineColor': '#7fdbca', 'secondaryColor': '#16213e', 'tertiaryColor': '#0f3460', 'fontFamily': 'Inter, system-ui, sans-serif', 'fontSize': '14px'}}}%%
+flowchart TB
+    subgraph INPUT["📥 Input"]
+        direction TB
+        USER["👤 User Request"]
+    end
+
+    subgraph CORE["⚙️ Core Pipeline"]
+        direction TB
+        T0["🔍 Requirement Triage"]
+        T1["📚 Context Gathering"]
+        T2["🏗️ Design"]
+        T3["⚡ Implementation"]
+        T4["🔗 Integration"]
+        T5["✅ Independent Review"]
+        T6["🔄 Remediation"]
+        T7["📤 Delivery"]
+    end
+
+    subgraph OUTPUT["📤 Output"]
+        direction TB
+        RESULT["✅ Delivered Result"]
+        ARTIFACTS["📁 Context Cache"]
+    end
+
+    USER --> T0
+    T0 --> T1
+    T1 --> T2
+    T2 --> T3
+    T3 --> T4
+    T4 --> T5
+    T5 -->|"Findings"| T6
+    T6 -->|"Gates Pass"| T7
+    T7 --> RESULT
+    T7 --> ARTIFACTS
+
+    T0:::triage
+    T1:::context
+    T2:::design
+    T3:::impl
+    T4:::integrate
+    T5:::review
+    T6:::remediate
+    T7:::deliver
+
+    classDef triage fill:#2d3a4f,stroke:#6366f1,stroke-width:2px,color:#e0e7ff
+    classDef context fill:#1e3a3a,stroke:#14b8a6,stroke-width:2px,color:#99f6e4
+    classDef design fill:#3d2d4f,stroke:#a855f7,stroke-width:2px,color:#e9d5ff
+    classDef impl fill:#3d4f2d,stroke:#22c55e,stroke-width:2px,color:#bbf7d0
+    classDef integrate fill:#4f3d2d,stroke:#f59e0b,stroke-width:2px,color:#fef3c7
+    classDef review fill:#4f2d3d,stroke:#ec4899,stroke-width:2px,color:#fbcfe8
+    classDef remediate fill:#4f3d3d,stroke:#ef4444,stroke-width:2px,color:#fecaca
+    classDef deliver fill:#2d4f3d,stroke:#10b981,stroke-width:2px,color:#a7f3d0
+```
+
+### Pipeline Flow
+
+| Stage | Agent | Output | Gate |
+|-------|-------|--------|------|
+| 0. Triage | `requirement-triage` | Classification: TRIVIAL / BOUNDED / COMPLEX | — |
+| 1. Context | `context-engineer` | Context Brief | — |
+| 2. Design | `solutions-architect` | Design Document (COMPLEX) / Plan | Review for COMPLEX |
+| 3. Implement | `implementer` | Code + Verification | — |
+| 4. Integrate | `integrator` | Connected Slices | — |
+| 5. Review | QA / Fidelity / Security / Performance | Findings Report | Block on HIGH |
+| 6. Remediate | `remediator` | Fixed Code | Loop until CLEAR |
+| 7. Deliver | `delivery-manager` | Accepted Result | — |
 
 ---
 
@@ -52,7 +118,6 @@ Like Parlant's observation/guideline matching, context is dynamically filtered b
   - External knowledge (web fetch for libraries, docs)
   - Git history for similar changes
 - Synthesizes context into a **Context Brief** — a focused, stage-specific document that narrows what matters
-- Like Parlant's glossary + retrievers, but for software engineering context
 
 ### Stage 2: Design
 **Agent**: `solutions-architect`
@@ -62,7 +127,7 @@ Like Parlant's observation/guideline matching, context is dynamically filtered b
 - For COMPLEX tasks, creates a **Design Document** reviewed by `scrum-master` and `product-manager`
 
 ### Stage 3: Implementation
-**Agent**: `implementer` (replaces scattered `lead-engineer` role)
+**Agent**: `implementer`
 - Takes the Design Document + Context Brief
 - Implements in atomic, verifiable slices
 - Each slice produces: code change + verification evidence + residual risk notes
@@ -77,7 +142,7 @@ Like Parlant's observation/guideline matching, context is dynamically filtered b
 - **`qa-reviewer`**: correctness, regressions, business logic gaps
 - **`fidelity-reviewer`**: exactness against source-of-truth when fidelity-sensitive
 - **`security-reviewer`**: trust-boundary changes
-- **`performance-reviewer`**: (NEW) performance constraints, concurrency, memory safety
+- **`performance-reviewer`**: performance constraints, concurrency, memory safety
 
 ### Stage 6: Remediation
 **Agent**: `remediator`
@@ -97,7 +162,7 @@ Like Parlant's observation/guideline matching, context is dynamically filtered b
 
 ### Core Orchestrators
 
-#### `ceo` (unchanged role, enhanced prompt)
+#### `ceo` (enhanced)
 Primary orchestrator. Entry point for all tasks. Routes to appropriate pipeline stage based on triage. Maintains todo state and continuity summaries.
 
 #### `requirement-triage` (NEW)
@@ -117,8 +182,8 @@ Takes Design Document + Context Brief, implements in verifiable slices.
 #### `integrator` (replaces `integration-engineer`)
 Connects slices, applies review fixes, guards cross-file consistency.
 
-#### `remediator` (NEW — replaces ad-hoc remediation in `ceo`)
-Handles remediation loops after review findings.
+#### `remediator` (NEW)
+Handles remediation loops after review findings. Replaces ad-hoc remediation loops previously embedded in `ceo`.
 
 #### `delivery-manager` (NEW)
 Final verification, artifact cleanup, acceptance confirmation.
@@ -128,10 +193,10 @@ Final verification, artifact cleanup, acceptance confirmation.
 #### `qa-reviewer` (enhanced)
 Now operates on Context Brief + Design Document, not just code diff.
 
-#### `fidelity-reviewer` (unchanged role, enhanced criteria)
+#### `fidelity-reviewer`
 Checks against source-of-truth: spec, UI, protocol, algorithm, expected output.
 
-#### `security-reviewer` (unchanged role)
+#### `security-reviewer`
 Trust-boundary changes.
 
 #### `performance-reviewer` (NEW)
@@ -145,7 +210,7 @@ Now works from triage classification + context, not just user request.
 #### `product-manager` (enhanced)
 Context-aware requirement analysis.
 
-#### `repo-explorer` (unchanged role)
+#### `repo-explorer`
 Now feeds into context-engineer as a context source.
 
 ---
