@@ -1,6 +1,6 @@
 # Context Brief Template
 
-> This document is synthesized by `context-engineer` at the start of each task. It narrows the context to what is relevant for the current work, inspired by Parlant's contextual narrowing approach.
+> This document is synthesized by `context-engineer` at the start of each task. It narrows the context to what is relevant for the current work.
 
 ## Task Summary
 
