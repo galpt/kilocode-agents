@@ -104,104 +104,48 @@ flowchart TB
 ## Per-Agent Pipeline
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#e8f5e9', 'primaryTextColor': '#1b5e20', 'primaryBorderColor': '#81c784', 'lineColor': '#66bb6a', 'secondaryColor': '#fff9e1', 'tertiaryColor': 'transparent', 'fontFamily': 'Inter, system-ui, sans-serif', 'fontSize': '14px'}}}%%
-flowchart LR
-    USER["👤 User"]:::userNode
+graph TD
+    User(["👤 User"]) -->|"🎯 Single Prompt"| CEO
 
     subgraph CEO["🎯 CEO Orchestrator"]
-        direction LR
-        A["Requirement Triage"]:::triageNode
-        B["Context Brief"]:::contextNode
-        C["Design Doc"]:::designNode
+        A["🔍 Requirement Triage"] --> B["📚 Context Brief"]
+        B --> C["🏗️ Design Doc"]
     end
 
-    subgraph SPECIALISTS["👷 Specialists"]
-        direction LR
-        D["Implementer"]:::implNode
-        E["Integrator"]:::integrateNode
-    end
+    C --> D["⚡ Implementer"]
+    D --> E["🔗 Integrator"]
+    E --> F["✅ QA Reviewer"]
 
-    subgraph REVIEWERS["🔍 Reviewers"]
-        direction LR
-        F["QA Reviewer"]:::qaNode
-        G["Fidelity Reviewer"]:::fidelityNode
-        H["Security Reviewer"]:::securityNode
-        I["Performance Reviewer"]:::perfNode
-    end
+    F -->|"✅ Pass"| J
+    F -->|"❌ Findings"| Remediator
+    Security["🔒 Security Reviewer"] --> Remediator
+    Fidelity["📐 Fidelity Reviewer"] --> Remediator
+    Perf["⚡ Performance Reviewer"] --> Remediator
 
-    subgraph FINAL["📤 Final"]
-        direction LR
-        J["Remediator"]:::remediateNode
-        K["Delivery Manager"]:::deliverNode
-    end
+    Remediator -->|"🔄 Fixed Code"| E
+    Remediator -->|"✅ All Clear"| Delivery
 
-    USER a@-->|"🎯 Single Prompt"| A
-    A a1@-->|"📋 Task Class| Context Quality|B
-    B b@-->|"📚 Context Brief"| C
-    C c@-->|"🏗️ Design"| D
-    D d@-->|"⚡ Code Slices"| E
-    E e@-->|"🔗 Connected| Code"| F
+    Delivery["📤 Delivery Manager"] -->|"📤 Delivered"| User
 
-    F f1@-->|"✅ Pass"| J
-    F f2@-->|"❌ Findings"| J
-    G g@-->|"❌ Findings"| J
-    H h@-->|"❌ Findings"| J
-    I i@-->|"❌ Findings"| J
+    classDef stage fill:#e8f5e9,stroke:#81c784,stroke-width:2px,color:#1b5e20
+    classDef review fill:#fce7f3,stroke:#ec4899,stroke-width:2px,color:#831843
+    classDef remediate fill:#fee2e2,stroke:#ef4444,stroke-width:2px,color:#991b1b
+    classDef deliver fill:#d1fae5,stroke:#10b981,stroke-width:2px,color:#065f46
+    classDef user fill:#e0e7ff,stroke:#6366f1,stroke-width:3px,color:#312e81
 
-    J j@-->|"🔄 Fixed| Code"| E
-    J k@-->|"✅ All Clear"| K
-    K l@-->|"📤 Delivered"| USER
-
-    a1@{animate: true}
-    b@{animate: true}
-    c@{animate: true}
-    d@{animate: true}
-    e@{animate: true}
-    f1@{animate: true}
-    f2@{animate: true}
-    g@{animate: true}
-    h@{animate: true}
-    i@{animate: true}
-    j@{animate: true}
-    k@{animate: true}
-    l@{animate: true}
-
-    linkStyle 0 stroke:#66bb6a,stroke-width:3px
-    linkStyle 1 stroke:#14b8a6,stroke-width:2px
-    linkStyle 2 stroke:#a855f7,stroke-width:2px
-    linkStyle 3 stroke:#22c55e,stroke-width:2px
-    linkStyle 4 stroke:#f59e0b,stroke-width:2px
-    linkStyle 5 stroke:#10b981,stroke-width:2px
-    linkStyle 6 stroke:#ec4899,stroke-width:2px
-    linkStyle 7 stroke:#ec4899,stroke-width:2px
-    linkStyle 8 stroke:#ef4444,stroke-width:2px
-    linkStyle 9 stroke:#ef4444,stroke-width:2px
-    linkStyle 10 stroke:#22c55e,stroke-width:2px
-    linkStyle 11 stroke:#10b981,stroke-width:2px
-    linkStyle 12 stroke:#7fdbca,stroke-width:3px
-
-    classDef userNode fill:#1a1a2e,stroke:#7fdbca,stroke-width:3px,color:#eaeaea
-    classDef triageNode fill:#2d3a4f,stroke:#6366f1,stroke-width:2px,color:#e0e7ff
-    classDef contextNode fill:#1e3a3a,stroke:#14b8a6,stroke-width:2px,color:#99f6e4
-    classDef designNode fill:#3d2d4f,stroke:#a855f7,stroke-width:2px,color:#e9d5ff
-    classDef implNode fill:#3d4f2d,stroke:#22c55e,stroke-width:2px,color:#bbf7d0
-    classDef integrateNode fill:#4f3d2d,stroke:#f59e0b,stroke-width:2px,color:#fef3c7
-    classDef qaNode fill:#4f2d3d,stroke:#ec4899,stroke-width:2px,color:#fbcfe8
-    classDef fidelityNode fill:#2d4f4f,stroke:#06b6d4,stroke-width:2px,color:#a5f3fc
-    classDef securityNode fill:#4f2d2d,stroke:#ef4444,stroke-width:2px,color:#fee2e2
-    classDef perfNode fill:#4f3d2d,stroke:#f97316,stroke-width:2px,color:#fed7aa
-    classDef remediateNode fill:#4f3d3d,stroke:#ef4444,stroke-width:2px,color:#fecaca
-    classDef deliverNode fill:#2d4f3d,stroke:#10b981,stroke-width:3px,color:#a7f3d0
+    class CEO,A,B,C,D,E,F stage
+    class Security,Fidelity,Perf review
+    class Remediator remediate
+    class Delivery,User deliver
+    class User user
 ```
 
 ### Data Flow
 
-- **Green lines** — context gathering and delivery flow
-- **Purple lines** — design phase
-- **Amber lines** — implementation and integration
-- **Pink lines** — review findings feedback
-- **Red lines** — remediation loop
-- **Teal border** — final delivery
+- **Green nodes** — core pipeline stages
+- **Pink nodes** — review agents
+- **Red node** — remediation loop
+- **Teal node** — final delivery
 
 The user sends a **single prompt** to `ceo`. `ceo` orchestrates the entire pipeline, delegating to specialists and reviewers as needed, with explicit remediation loops until all gates pass.
 
