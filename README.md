@@ -116,7 +116,7 @@ graph TD
     D --> E["🔗 Integrator"]
     E --> F["✅ QA Reviewer"]
 
-    F -->|"✅ Pass"| J
+    F -->|"✅ Pass"| Delivery
     F -->|"❌ Findings"| Remediator
     Security["🔒 Security Reviewer"] --> Remediator
     Fidelity["📐 Fidelity Reviewer"] --> Remediator
@@ -163,18 +163,19 @@ The user sends a **single prompt** to `ceo`. `ceo` orchestrates the entire pipel
 **Agent**: `context-engineer`
 - Gathers relevant context from:
   - Repo structure and conventions (via `repo-explorer`)
-  - Existing documentation, specs, requirements
+  - Existing documentation, specs, requirements, and `AGENTS.md` if present
   - Relevant code, APIs, patterns
   - External knowledge (web fetch for libraries, docs)
   - Git history for similar changes
 - Synthesizes context into a **Context Brief** — a focused, stage-specific document that narrows what matters
+- The context pipeline automatically ingests repo-level agent definitions (like `AGENTS.md`) at task start, providing the system with a shared understanding of available capabilities and conventions.
 
 ### Stage 2: Design
 **Agent**: `solutions-architect`
 - Translates the Context Brief + user request into a concrete technical plan
-- Defines file-by-file change scope
-- Identifies invariants, constraints, failure modes
+- Applies **Specification Mode**: explicit planning before implementation — defines file-by-file change scope, interfaces, migration considerations, invariants, and failure modes before any code is written
 - For COMPLEX tasks, creates a **Design Document** reviewed by `scrum-master` and `product-manager`
+- Design review is a first-class gate, not optional — no implementation begins on COMPLEX tasks until the Design Document passes review
 
 ### Stage 3: Implementation
 **Agent**: `implementer`
@@ -300,6 +301,7 @@ v4/
 |--------|----|----|
 | Context | Ad-hoc, prompt-dumped | Engineered, synthesized, narrowed |
 | Triage | Implicit in `ceo` | Dedicated `requirement-triage` agent |
+| Requirement quality | Referenced in prompts | First-class classification in pipeline |
 | Design | Single `architect` | `solutions-architect` with context-aware design |
 | Implementation | `lead-engineer` scoped by task | `implementer` scoped by Design Document |
 | Review | Post-hoc, code-only | Throughout, context-aware, multi-track |
@@ -307,6 +309,48 @@ v4/
 | Delivery | End of `ceo` turn | Explicit `delivery-manager` |
 | Performance | Absent | `performance-reviewer` for structural changes |
 | Continuity | Todos only | Context cache + resumable summaries |
+
+---
+
+## Design Notes
+
+This version builds on workflow patterns from structured AI code review systems:
+- requirement quality matters before business-logic judgments
+- context gathering and planning happen before implementation
+- review is categorized and explicit, not vague
+- delivery is a pipeline with retry and remediation loops, not one heroic agent trying to be flawless
+
+The practical rules behind this setup are:
+- the `ceo` may act directly for trivial tasks, but should not rely on one heavy-lifting agent for meaningful work
+- for non-trivial work, the `ceo` should treat delegation as a normal acceleration mechanism, not a last resort
+- any non-trivial implementation should have at least one independent review lane
+- explicit review quorums should govern signoff instead of ad-hoc judgment
+- fidelity-sensitive work should include a dedicated source-of-truth review lane, not just a code review lane
+- security review is opt-in by relevance, but mandatory for trust-boundary changes
+- greenfield work and large-existing-codebase work should both pass through explicit discovery and planning
+- subagents inherit the parent agent's effective permission envelope in Kilocode, so the CEO needs enough authority for its delegated workers to actually finish the job
+- step budgets should be generous enough to survive planning, remediation, and re-review loops without collapsing halfway through the pipeline
+- temporary artifacts should be treated as disposable by default and cleaned up before handoff so the workspace stays professional
+- long-running tasks should maintain compact-safe state via todos and resumable summaries so Kilocode auto-compaction does not erase the working memory of the pipeline
+
+---
+
+## Robustness Notes
+
+This version is designed to be more autonomous in the face of normal failures:
+- if one subagent stalls, the `ceo` should retry with a narrower scope, route the task to a better-fit agent, or execute directly when safe
+- review findings are meant to feed remediation loops, not merely produce commentary
+- exactness-sensitive tasks should be checked against a source-of-truth checklist, whether that source is a UI, a spec, a protocol, a scheduler design, an interface contract, or expected output behavior
+- the pipeline should pause for a human mainly when permission or a genuinely missing decision is required
+- scratch files, temp folders, debug probes, and throwaway helpers should be kept contained and removed before final delivery unless intentionally promoted into the real solution
+- resumable summaries and up-to-date todos are part of the workflow so a fresh agent can recover after auto-compaction without starting over blindly
+
+One important runtime nuance:
+- Kilocode does not provide magical direct subagent-to-subagent conversation by default
+- the intended pattern is CEO-mediated handoff, where the orchestrator passes findings, constraints, and checklists between agents explicitly
+- the normal iterative loop is parent → subagent → parent, and longer back-and-forth should reuse the same worker via `task_id` instead of assuming peer chat or nested delegation
+
+This is still intentionally leaner than a full organization chart. The extra roles exist only where they create a real quality gate.
 
 ---
 
