@@ -104,81 +104,26 @@ flowchart TB
 ## Per-Agent Pipeline
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#e8f5e9', 'primaryTextColor': '#1b5e20', 'primaryBorderColor': '#81c784', 'lineColor': '#66bb6a', 'secondaryColor': '#fff9e1', 'tertiaryColor': 'transparent', 'fontFamily': 'Inter, system-ui, sans-serif', 'fontSize': '14px'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#e8f5e9', 'primaryTextColor': '#1b5e20', 'primaryBorderColor': '#81c784', 'lineColor': '#66bb6a', 'secondaryColor': '#fff9e1', 'tertiaryColor': 'transparent'}}}%%
 flowchart LR
-    USER["👤 User"]:::userNode
+    USER["👤 User"] -->|"🎯 Single Prompt"| A
+    A["🔍 Requirement Triage"] -->|"📋 Classification + Context Quality"| B
+    B["📚 Context Brief"] -->|"📚 Context Brief"| C
+    C["🏗️ Design Doc"] -->|"🏗️ Design"| D
+    D["⚡ Implementer"] -->|"⚡ Code Slices"| E
+    E["🔗 Integrator"] -->|"🔗 Connected Code"| F
 
-    subgraph CEO["🎯 CEO Orchestrator"]
-        direction LR
-        A["Requirement Triage"]:::triageNode
-        B["Context Brief"]:::contextNode
-        C["Design Doc"]:::designNode
-    end
+    F["✅ QA Reviewer"] -->|"✅ Pass / ❌ Findings"| J
+    F -->|"❌ Findings"| G
+    G["🔒 Security Reviewer"] -->|"❌ Findings"| J
+    F -->|"❌ Findings"| H
+    H["📐 Fidelity Reviewer"] -->|"❌ Findings"| J
+    F -->|"❌ Findings"| I
+    I["⚡ Performance Reviewer"] -->|"❌ Findings"| J
 
-    subgraph SPECIALISTS["👷 Specialists"]
-        direction LR
-        D["Implementer"]:::implNode
-        E["Integrator"]:::integrateNode
-    end
-
-    subgraph REVIEWERS["🔍 Reviewers"]
-        direction LR
-        F["QA Reviewer"]:::qaNode
-        G["Fidelity Reviewer"]:::fidelityNode
-        H["Security Reviewer"]:::securityNode
-        I["Performance Reviewer"]:::perfNode
-    end
-
-    subgraph FINAL["📤 Final"]
-        direction LR
-        J["Remediator"]:::remediateNode
-        K["Delivery Manager"]:::deliverNode
-    end
-
-    USER a@-->|"🎯 Single Prompt"| A
-    A a1@-->|"📋 Task Class| Context Quality|B
-    B b@-->|"📚 Context Brief"| C
-    C c@-->|"🏗️ Design"| D
-    D d@-->|"⚡ Code Slices"| E
-    E e@-->|"🔗 Connected| Code"| F
-
-    F f1@-->|"✅ Pass"| J
-    F f2@-->|"❌ Findings"| J
-    G g@-->|"❌ Findings"| J
-    H h@-->|"❌ Findings"| J
-    I i@-->|"❌ Findings"| J
-
-    J j@-->|"🔄 Fixed| Code"| E
-    J k@-->|"✅ All Clear"| K
-    K l@-->|"📤 Delivered"| USER
-
-    a1@{animate: true}
-    b@{animate: true}
-    c@{animate: true}
-    d@{animate: true}
-    e@{animate: true}
-    f1@{animate: true}
-    f2@{animate: true}
-    g@{animate: true}
-    h@{animate: true}
-    i@{animate: true}
-    j@{animate: true}
-    k@{animate: true}
-    l@{animate: true}
-
-    linkStyle 0 stroke:#66bb6a,stroke-width:3px
-    linkStyle 1 stroke:#14b8a6,stroke-width:2px
-    linkStyle 2 stroke:#a855f7,stroke-width:2px
-    linkStyle 3 stroke:#22c55e,stroke-width:2px
-    linkStyle 4 stroke:#f59e0b,stroke-width:2px
-    linkStyle 5 stroke:#10b981,stroke-width:2px
-    linkStyle 6 stroke:#ec4899,stroke-width:2px
-    linkStyle 7 stroke:#ec4899,stroke-width:2px
-    linkStyle 8 stroke:#ef4444,stroke-width:2px
-    linkStyle 9 stroke:#ef4444,stroke-width:2px
-    linkStyle 10 stroke:#22c55e,stroke-width:2px
-    linkStyle 11 stroke:#10b981,stroke-width:2px
-    linkStyle 12 stroke:#7fdbca,stroke-width:3px
+    J["🔄 Remediator"] -->|"🔄 Fixed Code"| E
+    J -->|"✅ All Clear"| K
+    K["📤 Delivery Manager"] -->|"📤 Delivered"| USER
 
     classDef userNode fill:#1a1a2e,stroke:#7fdbca,stroke-width:3px,color:#eaeaea
     classDef triageNode fill:#2d3a4f,stroke:#6366f1,stroke-width:2px,color:#e0e7ff
@@ -192,6 +137,19 @@ flowchart LR
     classDef perfNode fill:#4f3d2d,stroke:#f97316,stroke-width:2px,color:#fed7aa
     classDef remediateNode fill:#4f3d3d,stroke:#ef4444,stroke-width:2px,color:#fecaca
     classDef deliverNode fill:#2d4f3d,stroke:#10b981,stroke-width:3px,color:#a7f3d0
+
+    class USER,K userNode
+    class A triageNode
+    class B contextNode
+    class C designNode
+    class D implNode
+    class E integrateNode
+    class F qaNode
+    class G securityNode
+    class H fidelityNode
+    class I perfNode
+    class J remediateNode
+    class K deliverNode
 ```
 
 ### Data Flow
