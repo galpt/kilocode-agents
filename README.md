@@ -76,14 +76,14 @@ flowchart TB
     T6:::remediate
     T7:::deliver
 
-    classDef triage fill:#2d3a4f,stroke:#6366f1,stroke-width:2px,color:#e0e7ff
-    classDef context fill:#1e3a3a,stroke:#14b8a6,stroke-width:2px,color:#99f6e4
-    classDef design fill:#3d2d4f,stroke:#a855f7,stroke-width:2px,color:#e9d5ff
-    classDef impl fill:#3d4f2d,stroke:#22c55e,stroke-width:2px,color:#bbf7d0
-    classDef integrate fill:#4f3d2d,stroke:#f59e0b,stroke-width:2px,color:#fef3c7
-    classDef review fill:#4f2d3d,stroke:#ec4899,stroke-width:2px,color:#fbcfe8
-    classDef remediate fill:#4f3d3d,stroke:#ef4444,stroke-width:2px,color:#fecaca
-    classDef deliver fill:#2d4f3d,stroke:#10b981,stroke-width:2px,color:#a7f3d0
+    classDef triage fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#bfdbfe
+    classDef context fill:#1a4a4a,stroke:#06b6d4,stroke-width:2px,color:#a5f3fc
+    classDef design fill:#3b2d5f,stroke:#8b5cf6,stroke-width:2px,color:#ddd6fe
+    classDef impl fill:#1a4a2d,stroke:#22c55e,stroke-width:2px,color:#bbf7d0
+    classDef integrate fill:#4a3a1a,stroke:#f59e0b,stroke-width:2px,color:#fef08a
+    classDef review fill:#4a1a3a,stroke:#ec4899,stroke-width:2px,color:#fbcfe8
+    classDef remediate fill:#4a1a1a,stroke:#ef4444,stroke-width:2px,color:#fecaca
+    classDef deliver fill:#1a4a3a,stroke:#10b981,stroke-width:2px,color:#a7f3d0
 ```
 
 ### Pipeline Flow
@@ -127,10 +127,10 @@ graph TD
 
     Delivery["📤 Delivery Manager"] -->|"📤 Delivered"| User
 
-    classDef stage fill:#e8f5e9,stroke:#81c784,stroke-width:2px,color:#1b5e20
-    classDef review fill:#fce7f3,stroke:#ec4899,stroke-width:2px,color:#831843
-    classDef remediate fill:#fee2e2,stroke:#ef4444,stroke-width:2px,color:#991b1b
-    classDef deliver fill:#d1fae5,stroke:#10b981,stroke-width:2px,color:#065f46
+    classDef stage fill:#e0f2fe,stroke:#3b82f6,stroke-width:2px,color:#1e40af
+    classDef review fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
+    classDef remediate fill:#fee2e2,stroke:#dc2626,stroke-width:2px,color:#991b1b
+    classDef deliver fill:#d1fae5,stroke:#059669,stroke-width:2px,color:#065f46
     classDef user fill:#e0e7ff,stroke:#6366f1,stroke-width:3px,color:#312e81
 
     class CEO,A,B,C,D,E,F stage
