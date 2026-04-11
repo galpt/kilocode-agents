@@ -163,18 +163,19 @@ The user sends a **single prompt** to `ceo`. `ceo` orchestrates the entire pipel
 **Agent**: `context-engineer`
 - Gathers relevant context from:
   - Repo structure and conventions (via `repo-explorer`)
-  - Existing documentation, specs, requirements
+  - Existing documentation, specs, requirements, and `AGENTS.md` if present
   - Relevant code, APIs, patterns
   - External knowledge (web fetch for libraries, docs)
   - Git history for similar changes
 - Synthesizes context into a **Context Brief** — a focused, stage-specific document that narrows what matters
+- The context pipeline automatically ingests repo-level agent definitions (like `AGENTS.md`) at task start, providing the system with a shared understanding of available capabilities and conventions.
 
 ### Stage 2: Design
 **Agent**: `solutions-architect`
 - Translates the Context Brief + user request into a concrete technical plan
-- Defines file-by-file change scope
-- Identifies invariants, constraints, failure modes
+- Applies **Specification Mode**: explicit planning before implementation — defines file-by-file change scope, interfaces, migration considerations, invariants, and failure modes before any code is written
 - For COMPLEX tasks, creates a **Design Document** reviewed by `scrum-master` and `product-manager`
+- Design review is a first-class gate, not optional — no implementation begins on COMPLEX tasks until the Design Document passes review
 
 ### Stage 3: Implementation
 **Agent**: `implementer`
