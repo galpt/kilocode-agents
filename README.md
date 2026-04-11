@@ -116,7 +116,7 @@ graph TD
     D --> E["🔗 Integrator"]
     E --> F["✅ QA Reviewer"]
 
-    F -->|"✅ Pass"| J
+    F -->|"✅ Pass"| Delivery
     F -->|"❌ Findings"| Remediator
     Security["🔒 Security Reviewer"] --> Remediator
     Fidelity["📐 Fidelity Reviewer"] --> Remediator
