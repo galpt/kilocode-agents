@@ -137,7 +137,7 @@ Recommended signoff quorums:
 
 ## Design Notes
 
-This version is influenced by the strongest parts of Kodus' workflow design:
+This version builds on workflow patterns from structured AI code review systems:
 - requirement quality matters before business-logic judgments
 - context gathering and planning happen before implementation
 - review is categorized and explicit, not vague
