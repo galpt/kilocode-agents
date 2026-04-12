@@ -6,6 +6,41 @@
 >
 > This project is still a work in progress and requires Kilocode v7.2.4 or newer to work reliably. It has been tested heavily with the MiniMax-M2.7 model — smarter models (e.g., Opus or GPT-5.4) may work out of the box, but less capable models may not behave as the README describes.
 
+## How to Import
+
+### Option 1: Full Config Bundle (Recommended)
+
+Import all agents at once via the Settings import flow.
+
+In Kilocode:
+1. Open `Settings`
+2. Go to `About`
+3. Click `Import Settings`
+4. Select `agents.json`
+5. Save the config
+
+Notes:
+- This merges the bundle onto your existing config — existing settings are preserved
+- Unknown top-level keys (such as `$schema`) are ignored by the importer
+- After import, `ceo` becomes the default agent
+
+### Option 2: Individual Agents
+
+Import agents one at a time for a lighter setup.
+
+In Kilocode:
+1. Open `Settings`
+2. Go to `Agent Behaviour`
+3. Open the `Agents` sub-tab
+4. Click `Import`
+5. Select one file from `agent-imports/`
+
+Note:
+- The Agents import UI accepts one agent at a time
+- Agent name must be unique (not already in your config)
+
+---
+
 ## Motivation
 
 v3 improved over ad-hoc single-agent workflows by introducing explicit pipeline stages and review quorums. However, it still relies primarily on **prompt engineering** — optimizing the instruction template — rather than engineering the **context** that goes into the template.
