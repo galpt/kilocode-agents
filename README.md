@@ -310,8 +310,8 @@ Now feeds into context-engineer as a context source.
 ## File Structure
 
 ```
-├── agents.json                  # Full config bundle
-├── agent-imports/
+├── agents.json                  # Full config bundle (import this)
+├── agent-imports/               # Individual agent files (for one-by-one import)
 │   ├── ceo.agent.json
 │   ├── requirement-triage.agent.json
 │   ├── context-engineer.agent.json
@@ -328,10 +328,11 @@ Now feeds into context-engineer as a context source.
 │   ├── product-manager.agent.json
 │   ├── repo-explorer.agent.json
 │   └── devops-engineer.agent.json
-├── context/
+├── context/                     # Templates for pipeline artifacts
 │   ├── context-brief-template.md
 │   └── design-doc-template.md
-├── agent-imports/               # Legacy v3 agent files
+├── old-prompt.md                # Legacy v3 prompts (for reference)
+├── new-prompt.md
 └── README.md
 ```
 
