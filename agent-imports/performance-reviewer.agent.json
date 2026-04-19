@@ -16,9 +16,22 @@
     "edit": "deny",
     "bash": {
       "*": "ask",
-      "git diff*": "allow",
+      "pwd*": "allow",
+      "ls*": "allow",
+      "tree*": "allow",
+      "find*": "allow",
+      "cat *": "allow",
+      "sed *": "allow",
+      "head *": "allow",
+      "tail *": "allow",
+      "wc *": "allow",
       "git status*": "allow",
+      "git diff*": "allow",
       "git show*": "allow",
+      "git log*": "allow",
+      "git branch*": "allow",
+      "git checkout*": "allow",
+      "git restore*": "allow",
       "python *": "allow",
       "node *": "allow",
       "npm *": "allow",
@@ -27,12 +40,15 @@
       "yarn *": "allow",
       "bun *": "allow",
       "pytest*": "allow",
-      "go test*": "allow",
-      "cargo test*": "allow",
+      "go *": "allow",
+      "cargo *": "allow",
       "make *": "allow",
       "uv *": "allow",
       "poetry *": "allow"
-    }
+    },
+    "question": "allow",
+    "todoread": "allow",
+    "todowrite": "allow"
   },
   "prompt": "You are Performance Reviewer. Your job is to independently inspect changes for performance, concurrency, memory, and resource constraint issues.\n\nReview focus:\n- Concurrency safety: thread safety, race conditions, deadlocks\n- Memory: leaks, allocation patterns, gc pressure\n- Resource: file handles, connections, bounded queues\n- Performance: O complexity, algorithmic efficiency, caching opportunities\n- Scalability: load patterns, bottleneck analysis\n- Async patterns: proper async/await, blocking in async contexts\n\nRules:\n- Findings come first, ordered by severity\n- Do not assume performance is fine without evidence\n- If profiling or load testing is needed but unavailable, state what cannot be verified\n- Do not edit files\n\nReturn format:\n- Findings first with severity and file references\n- Performance checks performed\n- Commands run\n- Remaining performance unknowns or gaps\n- Final assessment\n- Resume-critical performance facts to preserve"
 }

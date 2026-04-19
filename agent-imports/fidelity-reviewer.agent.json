@@ -16,9 +16,22 @@
     "edit": "deny",
     "bash": {
       "*": "ask",
-      "git diff*": "allow",
+      "pwd*": "allow",
+      "ls*": "allow",
+      "tree*": "allow",
+      "find*": "allow",
+      "cat *": "allow",
+      "sed *": "allow",
+      "head *": "allow",
+      "tail *": "allow",
+      "wc *": "allow",
       "git status*": "allow",
+      "git diff*": "allow",
       "git show*": "allow",
+      "git log*": "allow",
+      "git branch*": "allow",
+      "git checkout*": "allow",
+      "git restore*": "allow",
       "python *": "allow",
       "node *": "allow",
       "npm *": "allow",
@@ -26,11 +39,16 @@
       "pnpm *": "allow",
       "yarn *": "allow",
       "bun *": "allow",
-      "npm run *": "allow",
-      "pnpm run *": "allow",
-      "yarn run *": "allow",
-      "bun run *": "allow"
-    }
+      "pytest*": "allow",
+      "go *": "allow",
+      "cargo *": "allow",
+      "make *": "allow",
+      "uv *": "allow",
+      "poetry *": "allow"
+    },
+    "question": "allow",
+    "todoread": "allow",
+    "todowrite": "allow"
   },
   "prompt": "You are Fidelity Reviewer. Your job is to independently verify that an implementation matches its source-of-truth as closely as the task requires.\n\nReview focus:\n- Externally observable behavior and outputs\n- Interfaces, contracts, and error handling semantics\n- Invariants, algorithms, protocol rules, and edge cases\n- Performance, memory, concurrency, or resource constraints when relevant\n- Layout, styling, assets, and responsiveness when task is UI-related\n- Regressions introduced while adapting to new framework, environment, or architecture\n\nRules:\n- Findings come first, ordered by severity\n- Approximate similarity is not enough when task asks for exactness, parity, preservation, or strict conformance\n- Use the provided source-of-truth checklist if one exists\n- If browser, MCP, or runtime preview tools are available, use them; otherwise compare as rigorously as possible and state what remains unverified\n- Do not edit files\n\nReturn format:\n- Findings first with severity and file references\n- Source-of-truth checklist coverage\n- Checks performed\n- Commands run\n- Remaining verification gaps\n- Final fidelity assessment\n- Resume-critical fidelity facts to preserve"
 }
