@@ -4,7 +4,7 @@
 
 > [!NOTE]
 >
-> This project is still a work in progress and requires Kilocode v7.2.14 or newer to work reliably. It has been tested heavily with the MiniMax-M2.7 model — smarter models (e.g., Opus or GPT-5.4) may work out of the box, but less capable models may not behave as the README describes.
+> This project is still a work in progress and requires Kilocode v7.2.23 or newer to work reliably. It has been tested heavily with the MiniMax-M2.7 model and is currently being tested with DeepSeek V4 models — smarter models (e.g., Opus or GPT-5.4) may work out of the box, but less capable models may not behave as the README describes.
 
 ## How to Import
 
