@@ -1,4 +1,4 @@
-# Kilocode Agents v4 — Context Engineering Architecture
+# Kilocode Agents v5 — Context Engineering Architecture
 
 <sub><sup>Original prompts and agent architecture by `Galih Tama <galpt@v.recipes>`.</sup></sub>
 
@@ -47,7 +47,7 @@ v3 improved over ad-hoc single-agent workflows by introducing explicit pipeline 
 
 The problem: a well-engineered prompt with the wrong or poorly-gathered context still produces wrong results. The context is the what and when; the prompt is the how.
 
-## Core Principles for v4
+## Core Principles
 
 ### 1. Context is First-Class
 Every task starts with context gathering, not prompt writing. The pipeline treats context engineering as a distinct phase with dedicated tooling.
@@ -192,7 +192,7 @@ The user sends a **single prompt** to `ceo`. `ceo` orchestrates the entire pipel
 
 ---
 
-## v4 Pipeline Stages
+## v5 Pipeline Stages
 
 ### Stage 0: Requirement Triage
 **Agent**: `requirement-triage`
@@ -338,20 +338,34 @@ Now feeds into context-engineer as a context source.
 
 ---
 
+## Key Improvements Over v4
+
+| Aspect | v4 | v5 |
+|--------|----|----|
+| Requirement adherence | Explicit requirements only | Explicit + subtle/implicit requirements surfaced |
+| Error recovery | Remediation handled by dedicated agent after review | Structured recovery at every stage: self-diagnose, recover, push on |
+| Construction approach | Sliced implementation | Layered construction: scaffold first, then perfect in dependency order |
+| Context depth | Dynamic narrowing per stage | Dynamic narrowing + subtle-requirement awareness across all agents |
+| Delivery maturity | Acceptance criteria check | Deep verification including implicit expectations |
+| Root-cause discipline | Post-hoc remediation | Proactive root-cause tracing before any fix is applied |
+| Professionalism | Implicit | Explicit guidance: clean code, professional commits, proper issue/PR handling |
+
 ## Key Improvements Over v3
 
-| Aspect | v3 | v4 |
-|--------|----|----|
-| Context | Ad-hoc, prompt-dumped | Engineered, synthesized, narrowed |
-| Triage | Implicit in `ceo` | Dedicated `requirement-triage` agent |
-| Requirement quality | Referenced in prompts | First-class classification in pipeline |
-| Design | Single `architect` | `solutions-architect` with context-aware design |
-| Implementation | `lead-engineer` scoped by task | `implementer` scoped by Design Document |
-| Review | Post-hoc, code-only | Throughout, context-aware, multi-track |
-| Remediation | Implicit loops in `ceo` | Dedicated `remediator` |
-| Delivery | End of `ceo` turn | Explicit `delivery-manager` |
-| Performance | Absent | `performance-reviewer` for structural changes |
-| Continuity | Todos only | Context cache + resumable summaries |
+| Aspect | v3 | v4 | v5 |
+|--------|----|----|----|
+| Context | Ad-hoc, prompt-dumped | Engineered, synthesized, narrowed | + Subtle-requirement awareness |
+| Triage | Implicit in `ceo` | Dedicated `requirement-triage` agent | — |
+| Requirement quality | Referenced in prompts | First-class classification in pipeline | + Implicit-requirement surfacing |
+| Design | Single `architect` | `solutions-architect` with context-aware design | + Recovery path design |
+| Implementation | `lead-engineer` scoped by task | `implementer` scoped by Design Document | + Layered construction |
+| Review | Post-hoc, code-only | Throughout, context-aware, multi-track | + Implicit-requirement checks |
+| Remediation | Implicit loops in `ceo` | Dedicated `remediator` | + Root-cause tracing |
+| Delivery | End of `ceo` turn | Explicit `delivery-manager` | + Deep implicit-requirement verification |
+| Performance | Absent | `performance-reviewer` for structural changes | — |
+| Continuity | Todos only | Context cache + resumable summaries | — |
+| Professionalism | — | — | Explicit guidance across all agents |
+| Error resilience | — | — | Structured recovery at every pipeline stage |
 
 ---
 
