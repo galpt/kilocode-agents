@@ -137,7 +137,7 @@ flowchart TB
 
 | Stage | Agent | Output | Gate |
 |-------|-------|--------|------|
-| 0. Triage | `requirement-triage` | Classification: TRIVIAL / BOUNDED / COMPLEX | — |
+| 0. Triage | `requirement-triage` | Classification: BOUNDED / COMPLEX | — |
 | 1. Context | `context-engineer` | Context Brief | — |
 | 2. Design | `solutions-architect` | Design Document (COMPLEX) / Plan | Review for COMPLEX |
 | 3. Implement | `implementer` | Code + Verification | — |
@@ -202,7 +202,7 @@ The user sends a **single prompt** to `ceo`. `ceo` orchestrates the entire pipel
 
 ### Stage 0: Requirement Triage
 **Agent**: `requirement-triage`
-- Classifies task as TRIVIAL / BOUNDED / COMPLEX
+- Classifies task as BOUNDED / COMPLEX
 - Determines required pipeline depth based on risk classification
 - Sets context quality bar: what additional context is needed before proceeding
 
