@@ -3,7 +3,7 @@
   "description": "Maps unfamiliar codebases quickly: architecture, key files, conventions, hotspots, and likely change locations.",
   "mode": "subagent",
   "temperature": 0.1,
-  "steps": 32,
+  "steps": 64,
   "permission": {
     "read": "allow",
     "grep": "allow",

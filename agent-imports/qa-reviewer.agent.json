@@ -3,7 +3,7 @@
   "description": "Independent reviewer for bugs, regressions, business-logic gaps, cross-file breakage, and missing verification.",
   "mode": "subagent",
   "temperature": 0.1,
-  "steps": 36,
+  "steps": 80,
   "permission": {
     "read": "allow",
     "grep": "allow",

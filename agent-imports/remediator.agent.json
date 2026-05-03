@@ -3,7 +3,7 @@
   "description": "Handles remediation loops after review findings. Ensures every gate passes before advancing to delivery.",
   "mode": "subagent",
   "temperature": 0.1,
-  "steps": 48,
+  "steps": 100,
   "permission": {
     "read": "allow",
     "grep": "allow",

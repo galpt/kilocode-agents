@@ -3,7 +3,7 @@
   "description": "Turns a request into a sprint-style execution plan with work slices, owner assignments, dependencies, review gates, and definition of done.",
   "mode": "subagent",
   "temperature": 0.1,
-  "steps": 24,
+  "steps": 48,
   "permission": {
     "read": "allow",
     "grep": "allow",

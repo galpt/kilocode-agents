@@ -3,7 +3,7 @@
   "description": "Primary orchestrator for an autonomous software engineering company inside the AI coding environment. Routes tasks through a context-engineering pipeline with dedicated stages for triage, context gathering, design, implementation, integration, review, remediation, and delivery.",
   "mode": "primary",
   "temperature": 0.15,
-  "steps": 80,
+  "steps": 200,
   "permission": {
     "read": "allow",
     "grep": "allow",

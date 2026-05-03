@@ -3,7 +3,7 @@
   "description": "Gathers, synthesizes, and narrows context from repo, docs, code, history, and external sources to produce a focused Context Brief.",
   "mode": "subagent",
   "temperature": 0.1,
-  "steps": 48,
+  "steps": 120,
   "permission": {
     "read": "allow",
     "grep": "allow",

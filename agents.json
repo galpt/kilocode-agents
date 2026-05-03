@@ -7,7 +7,7 @@
       "description": "Primary orchestrator for an autonomous software engineering company inside the AI coding environment. Routes tasks through a context-engineering pipeline with dedicated stages for triage, context gathering, design, implementation, integration, review, remediation, and delivery.",
       "mode": "primary",
       "temperature": 0.15,
-      "steps": 80,
+      "steps": 200,
       "permission": {
         "read": "allow",
         "grep": "allow",
@@ -83,7 +83,7 @@
       "description": "Classifies incoming tasks and determines required pipeline depth based on risk, complexity, and context quality.",
       "mode": "subagent",
       "temperature": 0.1,
-      "steps": 32,
+      "steps": 64,
       "permission": {
         "read": "allow",
         "grep": "allow",
@@ -139,7 +139,7 @@
       "description": "Gathers, synthesizes, and narrows context from repo, docs, code, history, and external sources to produce a focused Context Brief.",
       "mode": "subagent",
       "temperature": 0.1,
-      "steps": 48,
+      "steps": 120,
       "permission": {
         "read": "allow",
         "grep": "allow",
@@ -195,7 +195,7 @@
       "description": "Translates Context Brief + user request into concrete technical plans. Produces Design Documents for COMPLEX tasks, actionable plans for BOUNDED.",
       "mode": "subagent",
       "temperature": 0.1,
-      "steps": 48,
+      "steps": 100,
       "permission": {
         "read": "allow",
         "grep": "allow",
@@ -251,7 +251,7 @@
       "description": "Implements code from Design Document + Context Brief in atomic, verifiable slices. Runs focused verification per slice.",
       "mode": "subagent",
       "temperature": 0.1,
-      "steps": 64,
+      "steps": 150,
       "permission": {
         "read": "allow",
         "grep": "allow",
@@ -307,7 +307,7 @@
       "description": "Connects implementation slices, applies review findings, and guards cross-file consistency.",
       "mode": "subagent",
       "temperature": 0.1,
-      "steps": 48,
+      "steps": 100,
       "permission": {
         "read": "allow",
         "grep": "allow",
@@ -363,7 +363,7 @@
       "description": "Handles remediation loops after review findings. Ensures every gate passes before advancing to delivery.",
       "mode": "subagent",
       "temperature": 0.1,
-      "steps": 48,
+      "steps": 100,
       "permission": {
         "read": "allow",
         "grep": "allow",
@@ -419,7 +419,7 @@
       "description": "Final verification, artifact cleanup, and acceptance confirmation before task completion.",
       "mode": "subagent",
       "temperature": 0.05,
-      "steps": 32,
+      "steps": 64,
       "permission": {
         "read": "allow",
         "grep": "allow",
@@ -475,7 +475,7 @@
       "description": "Turns a request into a sprint-style execution plan with work slices, owner assignments, dependencies, review gates, and definition of done.",
       "mode": "subagent",
       "temperature": 0.1,
-      "steps": 24,
+      "steps": 48,
       "permission": {
         "read": "allow",
         "grep": "allow",
@@ -531,7 +531,7 @@
       "description": "Turns ambiguous requests into executable scope, acceptance criteria, assumptions, and non-goals. Classifies requirement quality.",
       "mode": "subagent",
       "temperature": 0.2,
-      "steps": 24,
+      "steps": 48,
       "permission": {
         "read": "allow",
         "grep": "allow",
@@ -587,7 +587,7 @@
       "description": "Maps unfamiliar codebases quickly: architecture, key files, conventions, hotspots, and likely change locations.",
       "mode": "subagent",
       "temperature": 0.1,
-      "steps": 32,
+      "steps": 64,
       "permission": {
         "read": "allow",
         "grep": "allow",
@@ -643,7 +643,7 @@
       "description": "Independent reviewer for bugs, regressions, business-logic gaps, cross-file breakage, and missing verification.",
       "mode": "subagent",
       "temperature": 0.1,
-      "steps": 36,
+      "steps": 80,
       "permission": {
         "read": "allow",
         "grep": "allow",
@@ -699,7 +699,7 @@
       "description": "Independent reviewer for exactness-sensitive tasks. Verifies implementation matches source artifact, spec, expected behavior, invariants, outputs, interfaces.",
       "mode": "subagent",
       "temperature": 0.1,
-      "steps": 32,
+      "steps": 80,
       "permission": {
         "read": "allow",
         "grep": "allow",
@@ -755,7 +755,7 @@
       "description": "Independent reviewer for auth, permissions, secrets, validation, dependency risk, data exposure, and network-facing changes.",
       "mode": "subagent",
       "temperature": 0.1,
-      "steps": 32,
+      "steps": 80,
       "permission": {
         "read": "allow",
         "grep": "allow",
@@ -811,7 +811,7 @@
       "description": "Independent reviewer for concurrency, memory, resource constraints, and performance-sensitive structural changes.",
       "mode": "subagent",
       "temperature": 0.1,
-      "steps": 32,
+      "steps": 80,
       "permission": {
         "read": "allow",
         "grep": "allow",
@@ -867,7 +867,7 @@
       "description": "Handles CI, scripts, containers, environments, build pipelines, release automation, and operational tooling.",
       "mode": "subagent",
       "temperature": 0.1,
-      "steps": 32,
+      "steps": 80,
       "permission": {
         "read": "allow",
         "grep": "allow",

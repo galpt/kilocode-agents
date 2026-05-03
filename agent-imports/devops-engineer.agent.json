@@ -3,7 +3,7 @@
   "description": "Handles CI, scripts, containers, environments, build pipelines, release automation, and operational tooling.",
   "mode": "subagent",
   "temperature": 0.1,
-  "steps": 32,
+  "steps": 80,
   "permission": {
     "read": "allow",
     "grep": "allow",

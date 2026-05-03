@@ -3,7 +3,7 @@
   "description": "Turns ambiguous requests into executable scope, acceptance criteria, assumptions, and non-goals. Classifies requirement quality.",
   "mode": "subagent",
   "temperature": 0.2,
-  "steps": 24,
+  "steps": 48,
   "permission": {
     "read": "allow",
     "grep": "allow",
