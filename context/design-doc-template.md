@@ -1,6 +1,6 @@
 # Design Document Template
 
-> This document is produced by `solutions-architect` for COMPLEX tasks. For BOUNDED tasks, a shorter plan format is used instead.
+> This document is produced by `solutions-architect` for every pipeline task.
 
 ## Problem Statement
 

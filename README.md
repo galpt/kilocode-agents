@@ -137,9 +137,9 @@ flowchart TB
 
 | Stage | Agent | Output | Gate |
 |-------|-------|--------|------|
-| 0. Triage | `requirement-triage` | Classification: BOUNDED / COMPLEX | — |
+| 0. Triage | `requirement-triage` | Classification: COMPLEX | — |
 | 1. Context | `context-engineer` | Context Brief | — |
-| 2. Design | `solutions-architect` | Design Document (COMPLEX) / Plan | Review for COMPLEX |
+| 2. Design | `solutions-architect` | Design Document | Review mandatory |
 | 3. Implement | `implementer` | Code + Verification | — |
 | 4. Integrate | `integrator` | Connected Slices | — |
 | 5. Review | QA / Fidelity / Security / Performance | Findings Report | Block on HIGH |
@@ -202,7 +202,7 @@ The user sends a **single prompt** to `ceo`. `ceo` orchestrates the entire pipel
 
 ### Stage 0: Requirement Triage
 **Agent**: `requirement-triage`
-- Classifies task as BOUNDED / COMPLEX
+- Classifies task as COMPLEX
 - Determines required pipeline depth based on risk classification
 - Sets context quality bar: what additional context is needed before proceeding
 
@@ -221,8 +221,8 @@ The user sends a **single prompt** to `ceo`. `ceo` orchestrates the entire pipel
 **Agent**: `solutions-architect`
 - Translates the Context Brief + user request into a concrete technical plan
 - Applies **Specification Mode**: explicit planning before implementation — defines file-by-file change scope, interfaces, migration considerations, invariants, and failure modes before any code is written
-- For COMPLEX tasks, creates a **Design Document** reviewed by `scrum-master` and `product-manager`
-- Design review is a first-class gate, not optional — no implementation begins on COMPLEX tasks until the Design Document passes review
+- Creates a **Design Document** reviewed by `scrum-master` and `product-manager`
+- Design review is a first-class gate, not optional — no implementation begins until the Design Document passes review
 
 ### Stage 3: Implementation
 **Agent**: `implementer`
@@ -270,7 +270,7 @@ Classifies the incoming task and determines pipeline depth.
 Gathers, synthesizes, and narrows context. Produces a Context Brief. This replaces ad-hoc "inspect repo" steps with structured context engineering.
 
 #### `solutions-architect` (replaces `architect`)
-Enhanced from v3. Works from Context Brief, not raw user request. Produces Design Document for COMPLEX tasks, directly actionable plan for BOUNDED.
+Enhanced from v3. Works from Context Brief, not raw user request. Produces Design Document for all tasks.
 
 ### Specialist Agents
 
