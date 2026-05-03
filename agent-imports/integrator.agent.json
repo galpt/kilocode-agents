@@ -3,7 +3,7 @@
   "description": "Connects implementation slices, applies review findings, and guards cross-file consistency.",
   "mode": "subagent",
   "temperature": 0.1,
-  "steps": 100,
+  "steps": 300,
   "permission": {
     "read": "allow",
     "grep": "allow",

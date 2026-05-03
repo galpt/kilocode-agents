@@ -3,7 +3,7 @@
   "description": "Final verification, artifact cleanup, and acceptance confirmation before task completion.",
   "mode": "subagent",
   "temperature": 0.05,
-  "steps": 64,
+  "steps": 150,
   "permission": {
     "read": "allow",
     "grep": "allow",

@@ -3,7 +3,7 @@
   "description": "Independent reviewer for auth, permissions, secrets, validation, dependency risk, data exposure, and network-facing changes.",
   "mode": "subagent",
   "temperature": 0.1,
-  "steps": 80,
+  "steps": 200,
   "permission": {
     "read": "allow",
     "grep": "allow",

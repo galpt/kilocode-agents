@@ -3,7 +3,7 @@
   "description": "Implements code from Design Document + Context Brief in atomic, verifiable slices. Runs focused verification per slice.",
   "mode": "subagent",
   "temperature": 0.1,
-  "steps": 150,
+  "steps": 400,
   "permission": {
     "read": "allow",
     "grep": "allow",
