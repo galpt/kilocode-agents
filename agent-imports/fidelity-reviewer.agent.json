@@ -3,7 +3,7 @@
   "description": "Independent reviewer for exactness-sensitive tasks. Verifies implementation matches source artifact, spec, expected behavior, invariants, outputs, interfaces.",
   "mode": "subagent",
   "temperature": 0.1,
-  "steps": 26,
+  "steps": 32,
   "permission": {
     "read": "allow",
     "grep": "allow",

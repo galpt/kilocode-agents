@@ -3,7 +3,7 @@
   "description": "Translates Context Brief + user request into concrete technical plans. Produces Design Documents for COMPLEX tasks, actionable plans for BOUNDED.",
   "mode": "subagent",
   "temperature": 0.1,
-  "steps": 32,
+  "steps": 48,
   "permission": {
     "read": "allow",
     "grep": "allow",

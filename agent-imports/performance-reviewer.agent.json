@@ -3,7 +3,7 @@
   "description": "Independent reviewer for concurrency, memory, resource constraints, and performance-sensitive structural changes.",
   "mode": "subagent",
   "temperature": 0.1,
-  "steps": 28,
+  "steps": 32,
   "permission": {
     "read": "allow",
     "grep": "allow",
